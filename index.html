@@ -55,21 +55,6 @@
             gap: 0.75rem;
         }
 
-        .nav-logo-icon {
-            font-size: 1.8rem;
-        }
-
-        .nav-logo-text {
-            font-family: 'Bebas Neue', sans-serif;
-            color: var(--white);
-            font-size: 1.6rem;
-            letter-spacing: 2px;
-        }
-
-        .nav-logo-text span {
-            color: var(--orange);
-        }
-
         nav ul {
             list-style: none;
             display: flex;
@@ -132,18 +117,6 @@
             animation: fadeInUp 1s ease forwards;
         }
 
-        .hero-ball {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            display: block;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
         .hero-eyebrow {
             font-size: 0.85rem;
             letter-spacing: 4px;
@@ -164,10 +137,6 @@
 
         .hero h1 span {
             color: var(--orange);
-        }
-
-        .hero h1 .yellow {
-            color: var(--yellow);
         }
 
         .hero-sub {
@@ -487,8 +456,7 @@
     <!-- NAV -->
     <nav>
         <div class="nav-logo">
-            <span class="nav-logo-icon">⚽</span>
-            <span class="nav-logo-text">COOKIE<span>JUICE</span></span>
+            <img src="images/cookiejuice_soccer.png" alt="Cookie Juice" style="height: 48px; width: auto;">
         </div>
         <ul>
             <li><a href="#about">About</a></li>
@@ -500,9 +468,8 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
-            <span class="hero-ball">⚽</span>
             <p class="hero-eyebrow">Spring 2026 Season</p>
-            <h1>COOKIE<br><span>JUICE</span><br><span class="yellow">FC</span></h1>
+            <h1>COOKIE<br><span>JUICE</span></h1>
             <p class="hero-sub">Following the youth soccer journey of two brothers — on different teams, chasing the same dream.</p>
             <div class="hero-tags">
                 <span class="hero-tag">Youth Soccer</span>
