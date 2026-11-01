@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>TC Varsity Soccer — 2026-27 Schedule</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #F33401;
+            --yellow: #FFD600;
+            --dark: #1A1A2E;
+            --mid: #16213E;
+            --blue: #0F3460;
+            --white: #FFFFFF;
+            --light-gray: #F4F4F4;
+            --green: #2E7D32;
+            --muted: #6b6b80;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--dark);
+            line-height: 1.5;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--blue) 60%, #1a4080 100%);
+            color: var(--white);
+            padding: 1.5rem 1rem 1.75rem;
+            border-bottom: 3px solid var(--orange);
+            text-align: center;
+        }
+
+        header img { height: 64px; }
+
+        header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.4rem;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            margin-top: 0.5rem;
+        }
+
+        header p { color: #c8c8d8; font-size: 0.95rem; }
+
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 1.25rem 1rem 2rem;
+        }
+
+        .notice {
+            background: #fff8d6;
+            border-left: 4px solid var(--yellow);
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.25rem;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        .toggle {
+            margin-left: auto;
+            background: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0.2rem 0.6rem;
+            font: inherit;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        .game {
+            display: grid;
+            grid-template-columns: 4.5rem 1fr;
+            gap: 1rem;
+            background: var(--white);
+            border-radius: 8px;
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--blue);
+        }
+
+        .game.home { border-left-color: var(--orange); }
+
+        .game.next {
+            outline: 3px solid var(--yellow);
+            outline-offset: -1px;
+        }
+
+        .game.past { opacity: 0.5; }
+        body.hide-past .game.past { display: none; }
+
+        .date {
+            text-align: center;
+            font-family: 'Bebas Neue', sans-serif;
+            line-height: 1;
+        }
+
+        .date .dow { font-size: 1rem; color: var(--muted); letter-spacing: 1px; }
+        .date .day { font-size: 2.2rem; }
+        .date .mon { font-size: 1rem; letter-spacing: 1px; }
+
+        .info h2 {
+            font-size: 1.15rem;
+            font-weight: 900;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.1rem 0.5rem;
+            border-radius: 3px;
+            vertical-align: middle;
+            margin-left: 0.35rem;
+            color: var(--white);
+            background: var(--blue);
+        }
+
+        .home .badge.ha { background: var(--orange); }
+        .badge.next-badge { background: var(--yellow); color: var(--dark); }
+
+        .meta { font-size: 0.92rem; }
+        .meta strong { font-weight: 700; }
+        .meta a { color: var(--blue); }
+        .notes { font-size: 0.88rem; color: var(--muted); margin-top: 0.2rem; }
+        .notes b { color: var(--orange); }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--muted);
+            padding: 0 1rem 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="/images/cookiejuice_soccer.png" alt="Cookie Juice logo">
+        <h1>Trinity Catholic Boys Varsity</h1>
+        <p>2026-27 game schedule</p>
+    </header>
+
+    <main>
+        <div class="notice">
+            Schedule as of Oct 29, 2026. Changes are posted in the Stack Team App, so check there before each game.
+        </div>
+
+        <div class="legend">
+            <span>Home: white jerseys</span>
+            <span>Away: green jerseys</span>
+            <span>Times are kickoff (warm-up 1 hr before)</span>
+            <button class="toggle" id="toggle-past" hidden>Show past games</button>
+        </div>
+
+        <div id="games"></div>
+    </main>
+
+    <footer>Home games at Trinity Catholic High School, 2600 SW 42nd St, Ocala.</footer>
+
+    <script>
+        // [date, kickoff, opponent, home?, location, notes]
+        const GAMES = [
+            ['2026-11-02', '3:45 PM', 'Redeemer', false, 'Redeemer Christian School, 155 SW 87 Pl, Ocala 34476', '<b>Moved from Tue 11/3.</b> No bus, own ride.'],
+            ['2026-11-05', '7:00 PM', 'South Sumter', true, '', ''],
+            ['2026-11-10', '6:30 PM', 'Citrus', false, '600 W Highland Blvd, Inverness 34452', 'Bus'],
+            ['2026-11-12', '7:00 PM', 'Central', false, '14075 Ken Austin Pkwy, Brooksville 34613', 'Bus'],
+            ['2026-11-16', '6:00 PM', 'West Port', true, '', ''],
+            ['2026-11-18', 'TBD', 'Bishop Snyder', false, '5001 Samaritan Way, Jacksonville 32210', 'Bus. Kickoff time TBD.'],
+            ['2026-12-01', '7:00 PM', 'Williston', false, '350 Robert Philpot Wy, Williston 32696', 'Bus. Girls play too.'],
+            ['2026-12-03', '6:00 PM', 'Lake Weir', true, '', ''],
+            ['2026-12-08', '7:00 PM', 'P.K. Yonge', true, '', 'Girls play too.'],
+            ['2026-12-10', '6:30 PM', 'South Sumter', false, '706 N Main St, Bushnell 33513', 'Bus'],
+            ['2026-12-14', '6:00 PM', 'Forest', false, '5000 SE Maricamp Rd, Ocala 34480', 'No bus (Marion Co.), own ride.'],
+            ['2027-01-05', '6:30 PM', 'The Villages', true, '', ''],
+            ['2027-01-07', '7:00 PM', 'St. Francis', false, '4100 NW 115th Terrace, Gainesville 32606', 'Bus. Girls play too.'],
+            ['2027-01-11', '5:00 PM', 'Mount Dora Christian', false, '301 W 13th Ave, Mt Dora 32757', 'Bus'],
+            ['2027-01-12', '7:00 PM', 'Belleview', false, '10400 SE 36 Ave, Belleview 34420', 'No bus (Marion Co.), own ride. Girls play too.'],
+            ['2027-01-14', '6:00 PM', 'North Marion', true, '', ''],
+            ['2027-01-19', '7:30 PM', 'South Marion', true, '', '<b>Senior Night.</b> Girls play too.'],
+            ['2027-01-26', '6:30 PM', 'Lecanto', true, '', ''],
+            ['2027-01-28', '6:00 PM', 'The Rock School', false, '9818 SW 24th Ave B, Gainesville 32607', 'Bus'],
+        ];
+
+        const HOME = '2600 SW 42nd St, Ocala 34471';
+        const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        // Today's date in Ocala, as YYYY-MM-DD, so a game stays "upcoming" all day.
+        const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
+
+        let nextFound = false;
+        let pastCount = 0;
+        const html = GAMES.map(([date, time, opp, home, loc, notes]) => {
+            const [y, m, d] = date.split('-').map(Number);
+            const dow = DOW[new Date(y, m - 1, d).getDay()];
+            const past = date < today;
+            const next = !past && !nextFound;
+            if (next) nextFound = true;
+            if (past) pastCount++;
+            const where = home ? 'Trinity Catholic HS' : loc;
+            const map = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(home ? HOME : loc);
+            const cls = ['game', home ? 'home' : 'away', past && 'past', next && 'next'].filter(Boolean).join(' ');
+            return `
+            <div class="${cls}">
+                <div class="date">
+                    <div class="dow">${dow}</div>
+                    <div class="day">${d}</div>
+                    <div class="mon">${MON[m - 1]}</div>
+                </div>
+                <div class="info">
+                    <h2>${home ? 'vs' : '@'} ${opp}<span class="badge ha">${home ? 'Home' : 'Away'}</span>${next ? '<span class="badge next-badge">Next</span>' : ''}</h2>
+                    <div class="meta"><strong>${time}</strong> · <a href="${map}" target="_blank" rel="noopener">${where}</a></div>
+                    ${notes ? `<div class="notes">${notes}</div>` : ''}
+                </div>
+            </div>`;
+        }).join('');
+
+        document.getElementById('games').innerHTML = html;
+
+        // Hide finished games by default once the season is under way.
+        if (pastCount) {
+            const btn = document.getElementById('toggle-past');
+            document.body.classList.add('hide-past');
+            btn.hidden = false;
+            btn.addEventListener('click', () => {
+                const hidden = document.body.classList.toggle('hide-past');
+                btn.textContent = hidden ? 'Show past games' : 'Hide past games';
+            });
+        }
+    </script>
+</body>
+</html>
