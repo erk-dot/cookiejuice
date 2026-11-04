@@ -1,9 +1,10 @@
 // Shared by the schedule (index.html) and the printable schedule (print.html).
 // Browsers cache this file for hours, so after any change bump ?v= on the
 // games.js script tag in both pages.
-// [date, kickoff, opponent, home?, location, notes]
+// [date, kickoff, opponent, home?, location, notes, score]
+// score is optional: [tcGoals, opponentGoals], added once the game is played.
 const GAMES = [
-    ['2026-11-02', '3:45 PM', 'Redeemer', false, 'Redeemer Christian School, 155 SW 87 Pl, Ocala 34476', 'No bus, own ride.'],
+    ['2026-11-02', '3:45 PM', 'Redeemer', false, 'Redeemer Christian School, 155 SW 87 Pl, Ocala 34476', 'No bus, own ride.', [2, 1]],
     ['2026-11-05', '6:00 PM', 'South Sumter', true, '', ''],
     ['2026-11-10', '6:30 PM', 'Citrus', false, '600 W Highland Blvd, Inverness 34452', 'Bus'],
     ['2026-11-12', '7:00 PM', 'Central', false, '14075 Ken Austin Pkwy, Brooksville 34613', 'Bus'],

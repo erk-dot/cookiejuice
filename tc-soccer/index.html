@@ -136,10 +136,13 @@
 
         .away .badge.ha { background: var(--orange); }
         .badge.next-badge { background: var(--yellow); color: var(--dark); }
+        .badge.win { background: var(--green); }
+        .badge.loss { background: var(--muted); }
 
         .meta { font-size: 0.92rem; }
         .meta strong { font-weight: 700; }
         .meta a { color: var(--blue); }
+        .final { font-size: 0.92rem; font-weight: 700; margin-top: 0.2rem; }
         .notes { font-size: 0.88rem; color: var(--muted); margin-top: 0.2rem; }
         .notes b { color: var(--orange); }
 
@@ -177,14 +180,14 @@
 
     <footer>Home games at Trinity Catholic High School, 2600 SW 42nd St, Ocala.</footer>
 
-    <script src="/tc-soccer/games.js?v=2"></script>
+    <script src="/tc-soccer/games.js?v=3"></script>
     <script>
         // Today's date in Ocala, as YYYY-MM-DD, so a game stays "upcoming" all day.
         const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
 
         let nextFound = false;
         let pastCount = 0;
-        const html = GAMES.map(([date, time, opp, home, loc, notes]) => {
+        const html = GAMES.map(([date, time, opp, home, loc, notes, score]) => {
             const [y, m, d] = date.split('-').map(Number);
             const dow = DOW[new Date(y, m - 1, d).getDay()];
             const past = date < today;
@@ -194,6 +197,12 @@
             const where = home ? 'Trinity Catholic HS' : loc;
             const map = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(home ? HOME : loc);
             const cls = ['game', home ? 'home' : 'away', past && 'past', next && 'next'].filter(Boolean).join(' ');
+            let final = '';
+            if (past && score) {
+                const [tc, them] = score;
+                const result = tc > them ? ['W', 'win'] : tc < them ? ['L', 'loss'] : ['T', 'tie'];
+                final = `<div class="final">Final: TC ${tc}, ${opp} ${them}<span class="badge ${result[1]}">${result[0]}</span></div>`;
+            }
             return `
             <div class="${cls}">
                 <div class="date">
@@ -204,6 +213,7 @@
                 <div class="info">
                     <h2>${home ? 'vs' : '@'} ${opp}<span class="badge ha">${home ? 'Home' : 'Away'}</span>${next ? '<span class="badge next-badge">Next</span>' : ''}</h2>
                     <div class="meta"><strong>${time}</strong> · <a href="${map}" target="_blank" rel="noopener">${where}</a></div>
+                    ${final}
                     ${notes ? `<div class="notes">${notes}</div>` : ''}
                 </div>
             </div>`;
