@@ -78,7 +78,7 @@
     <div class="table-wrap">
         <table>
             <thead>
-                <tr><th>Date</th><th>Kickoff</th><th>Opponent</th><th>H/A</th><th>Location</th><th>Notes</th></tr>
+                <tr><th>Date</th><th>Kickoff</th><th>Opponent</th><th>H/A</th><th>Result</th><th>Location</th><th>Notes</th></tr>
             </thead>
             <tbody id="games"></tbody>
         </table>
@@ -91,15 +91,24 @@
 
     <script src="/tc-soccer/games.js?v=3"></script>
     <script>
-        document.getElementById('games').innerHTML = GAMES.map(([date, time, opp, home, loc, notes]) => {
+        // Today's date in Ocala, as YYYY-MM-DD, matching the main schedule.
+        const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
+
+        document.getElementById('games').innerHTML = GAMES.map(([date, time, opp, home, loc, notes, score]) => {
             const [y, m, d] = date.split('-').map(Number);
             const dow = DOW[new Date(y, m - 1, d).getDay()];
+            let result = '';
+            if (date < today && score) {
+                const [tc, them] = score;
+                result = `${tc > them ? 'W' : tc < them ? 'L' : 'T'} ${tc}–${them}`;
+            }
             return `
                 <tr>
                     <td class="nowrap">${dow} ${MON[m - 1]} ${d}</td>
                     <td class="nowrap">${time}</td>
                     <td>${home ? 'vs' : '@'} ${opp}</td>
                     <td>${home ? 'Home' : 'Away'}</td>
+                    <td class="nowrap">${result}</td>
                     <td>${home ? 'Trinity Catholic HS' : loc}</td>
                     <td>${notes}</td>
                 </tr>`;
