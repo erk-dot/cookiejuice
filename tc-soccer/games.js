@@ -1,4 +1,6 @@
 // Shared by the schedule (index.html) and the printable schedule (print.html).
+// Browsers cache this file for hours, so after any change bump ?v= on the
+// games.js script tag in both pages.
 // [date, kickoff, opponent, home?, location, notes]
 const GAMES = [
     ['2026-11-02', '3:45 PM', 'Redeemer', false, 'Redeemer Christian School, 155 SW 87 Pl, Ocala 34476', 'No bus, own ride.'],
