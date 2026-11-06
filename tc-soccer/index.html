@@ -54,6 +54,39 @@
             padding: 1.25rem 1rem 2rem;
         }
 
+        .record {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .record .tile {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--blue);
+            padding: 0.6rem 0.5rem;
+            text-align: center;
+        }
+
+        .record .tile.wins { border-top-color: var(--green); }
+        .record .tile.losses { border-top-color: var(--muted); }
+
+        .record .num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.6rem;
+            line-height: 1;
+        }
+
+        .record .label {
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
         .notice {
             background: #e8eef6;
             border-left: 4px solid var(--blue);
@@ -162,6 +195,12 @@
     </header>
 
     <main>
+        <div class="record">
+            <div class="tile wins"><div class="num" id="wins">0</div><div class="label">Wins</div></div>
+            <div class="tile losses"><div class="num" id="losses">0</div><div class="label">Losses</div></div>
+            <div class="tile draws"><div class="num" id="draws">0</div><div class="label">Draws</div></div>
+        </div>
+
         <div class="notice">
             Schedule as of Nov 4, 2026. Changes are posted in the Stack Team App, so check there before each game.
             Tap a game's location to get driving directions in Google Maps.
@@ -220,6 +259,19 @@
         }).join('');
 
         document.getElementById('games').innerHTML = html;
+
+        // Season record from finished games that have a score.
+        let wins = 0, losses = 0, draws = 0;
+        for (const [date, , , , , , score] of GAMES) {
+            if (!score || date >= today) continue;
+            const [tc, them] = score;
+            if (tc > them) wins++;
+            else if (tc < them) losses++;
+            else draws++;
+        }
+        document.getElementById('wins').textContent = wins;
+        document.getElementById('losses').textContent = losses;
+        document.getElementById('draws').textContent = draws;
 
         // Hide finished games by default once the season is under way.
         if (pastCount) {
