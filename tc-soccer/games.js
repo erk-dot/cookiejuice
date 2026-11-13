@@ -9,7 +9,6 @@ const GAMES = [
     ['2026-11-10', '6:30 PM', 'Citrus', true, '', '', [2, 2]],
     ['2026-11-12', '7:00 PM', 'Central', false, '14075 Ken Austin Pkwy, Brooksville 34613', 'Bus', [2, 0]],
     ['2026-11-16', '6:00 PM', 'West Port', true, '', ''],
-    ['2026-11-18', 'TBD', 'Bishop Snyder', false, '5001 Samaritan Way, Jacksonville 32210', 'Bus. Kickoff time TBD.'],
     ['2026-12-01', '7:00 PM', 'Williston', false, '350 Robert Philpot Wy, Williston 32696', 'Bus. Girls play too.'],
     ['2026-12-03', '6:00 PM', 'Lake Weir', true, '', ''],
     ['2026-12-08', '7:00 PM', 'P.K. Yonge', true, '', 'Girls play too.'],
