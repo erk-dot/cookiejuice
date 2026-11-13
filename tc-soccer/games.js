@@ -7,7 +7,7 @@ const GAMES = [
     ['2026-11-02', '3:45 PM', 'Redeemer', false, 'Redeemer Christian School, 155 SW 87 Pl, Ocala 34476', 'No bus, own ride.', [2, 1]],
     ['2026-11-05', '6:00 PM', 'South Sumter', true, '', '', [5, 0]],
     ['2026-11-10', '6:30 PM', 'Citrus', true, '', '', [2, 2]],
-    ['2026-11-12', '7:00 PM', 'Central', false, '14075 Ken Austin Pkwy, Brooksville 34613', 'Bus'],
+    ['2026-11-12', '7:00 PM', 'Central', false, '14075 Ken Austin Pkwy, Brooksville 34613', 'Bus', [2, 0]],
     ['2026-11-16', '6:00 PM', 'West Port', true, '', ''],
     ['2026-11-18', 'TBD', 'Bishop Snyder', false, '5001 Samaritan Way, Jacksonville 32210', 'Bus. Kickoff time TBD.'],
     ['2026-12-01', '7:00 PM', 'Williston', false, '350 Robert Philpot Wy, Williston 32696', 'Bus. Girls play too.'],
