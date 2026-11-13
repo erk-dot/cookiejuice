@@ -229,7 +229,8 @@
         const html = GAMES.map(([date, time, opp, home, loc, notes, score]) => {
             const [y, m, d] = date.split('-').map(Number);
             const dow = DOW[new Date(y, m - 1, d).getDay()];
-            const past = date < today;
+            // A game is finished once its day is over, or as soon as its score is entered.
+            const past = date < today || !!score;
             const next = !past && !nextFound;
             if (next) nextFound = true;
             if (past) pastCount++;
@@ -260,10 +261,10 @@
 
         document.getElementById('games').innerHTML = html;
 
-        // Season record from finished games that have a score.
+        // Season record from every game that has a score, including tonight's.
         let wins = 0, losses = 0, draws = 0;
-        for (const [date, , , , , , score] of GAMES) {
-            if (!score || date >= today) continue;
+        for (const [, , , , , , score] of GAMES) {
+            if (!score) continue;
             const [tc, them] = score;
             if (tc > them) wins++;
             else if (tc < them) losses++;
